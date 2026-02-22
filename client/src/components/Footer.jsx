@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { FaBolt, FaLinkedin, FaTwitter, FaGithub, FaInstagram, FaEnvelope, FaPhone, FaMapMarkerAlt } from 'react-icons/fa'
+import { FaBolt, FaLinkedin, FaMailBulk, FaGithub, FaInstagram, FaEnvelope, FaPhone, FaMapMarkerAlt } from 'react-icons/fa'
 import './Footer.css'
 
 const Footer = () => {
@@ -27,9 +27,9 @@ const Footer = () => {
 
     const socialLinks = [
         { icon: <FaLinkedin />, url: 'https://www.linkedin.com/company/crackone-technologies', label: 'LinkedIn' },
-        { icon: <FaTwitter />, url: '#', label: 'Twitter' },
+        { icon: <FaMailBulk />, url: 'crackonetechnologies@gmail.com', label: 'Email' },
         { icon: <FaGithub />, url: 'https://github.com/crackone-technologies', label: 'GitHub' },
-        { icon: <FaInstagram />, url: '#', label: 'Instagram' }
+        { icon: <FaInstagram />, url: 'https://www.instagram.com/crackonetechnologies?igsh=Zm84emV6dTdqbGFj', label: 'Instagram' }
     ]
 
     return (
@@ -43,7 +43,7 @@ const Footer = () => {
                         <div className="footer-brand">
                             <Link to="/" className="footer-logo">
                                 <div className="logo-wrapper">
-                                    <img src="/logo.png" alt="CrackOne Logo" className="logo-image" />
+                                    <img src="/images/logo.png" alt="CrackOne Logo" className="logo-image" />
                                 </div>
                                 <span className="logo-text">CrackOne Technologies</span>
                             </Link>

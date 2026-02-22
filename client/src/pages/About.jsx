@@ -10,13 +10,13 @@ const About = () => {
     ]
 
     const team = [
-        { name: 'VINOTH ', role: 'Marketing & Video Editor', initial: 'V',image: 'public/vino.png', linkedin: 'https://www.linkedin.com/in/vinoth-b-88a9742b7/' },
-        { name: 'BALAMANIKANDAN ', role: 'Cloud Architect', initial: 'B',image: 'public/bala.png', linkedin: 'https://www.linkedin.com/in/balamanikandan-s-4978a72b1/' },
-        { name: 'SANTHOSH KUMAR ', role: 'FullStack Developer', initial: 'S',image: 'public/santhosh.jpeg', linkedin: 'https://www.linkedin.com/in/santhosh-kumar-6a498a2a0/' },
-        { name: 'HARIHARASUDHAN ', role: 'Game & IOT Developer', initial: 'H',image: 'public/hariharasudhan.jpeg', linkedin: 'https://www.linkedin.com/in/hariharasudhan-k-437aa2294/' },
-        { name: 'RANJITTH KUMAR ', role: 'Software Developer', initial: 'R',image: 'public/ranjith.jpeg', linkedin: 'https://www.linkedin.com/in/ranjithkumar-s-285468355/' },
-        { name: 'KISHORE  ', role: 'Designer', initial: 'S' , image: 'public/kishore.jpeg', linkedin: 'https://www.linkedin.com/in/kishore-s-b07a802a0/' },
-        { name: 'SARRATH BABU ', role: 'MERN Stack Developer', initial: 'S', image: 'public/sarrath.jpeg', linkedin: 'https://www.linkedin.com/in/sarrathbabu/' }
+        { name: 'VINOTH ', role: 'Marketing & Video Editor', initial: 'V',image: '/images/vino.png', linkedin: 'https://www.linkedin.com/in/vinoth-b-88a9742b7/' },
+        { name: 'BALAMANIKANDAN ', role: 'Cloud Architect', initial: 'B',image: '/images/bala.png', linkedin: 'https://www.linkedin.com/in/balamanikandan-s-4978a72b1/' },
+        { name: 'SANTHOSH KUMAR ', role: 'FullStack Developer', initial: 'S',image: '/images/santhosh.jpeg', linkedin: 'https://www.linkedin.com/in/santhosh-kumar-6a498a2a0/' },
+        { name: 'HARIHARASUDHAN ', role: 'Game & IOT Developer', initial: 'H',image: '/images/hariharasudhan.jpeg', linkedin: 'https://www.linkedin.com/in/hariharasudhan-k-437aa2294/' },
+        { name: 'RANJITTH KUMAR ', role: 'Software Developer', initial: 'R',image: '/images/ranjith.jpeg', linkedin: 'https://www.linkedin.com/in/ranjithkumar-s-285468355/' },
+        { name: 'KISHORE  ', role: 'Designer', initial: 'S' , image: '/images/kishore.jpeg', linkedin: 'https://www.linkedin.com/in/kishore-s-b07a802a0/' },
+        { name: 'SARRATH BABU ', role: 'MERN Stack Developer', initial: 'S', image: '/images/sarrath.jpeg', linkedin: 'https://www.linkedin.com/in/sarrathbabu/' }
     ]
 
     const milestones = [

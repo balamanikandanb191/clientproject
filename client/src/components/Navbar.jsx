@@ -29,7 +29,7 @@ const Navbar = () => {
             <div className="navbar-container">
                 <Link to="/" className="navbar-logo">
                     <div className="logo-wrapper">
-                        <img src="/logo.png" alt="CrackOne Logo" className="logo-image" />
+                        <img src="/images/logo.png" alt="CrackOne Logo" className="logo-image" />
                     </div>
                     <span className="logo-text">CrackOne Technologies</span>
                 </Link>
