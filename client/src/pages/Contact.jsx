@@ -49,7 +49,7 @@ const Contact = () => {
     setError('')
 
     try {
-     const response = await fetch('https://clientproject-ljbo.onrender.com/api/contact', {
+     const response = await fetch('https://clientproject-mjew.onrender.com/api/contact', {
   method: 'POST',
   headers: { 'Content-Type': 'application/json' },
   body: JSON.stringify(formData)
