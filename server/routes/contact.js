@@ -9,13 +9,24 @@ const db = require('../config/db'); // Database connection pool
 const authUser = (process.env.SMTP_USER || 'crackonetechnologies@gmail.com').split(',')[0].trim();
 
 const transporter = nodemailer.createTransport({
-    service: 'gmail',
+    host: process.env.SMTP_HOST,
+    port: Number(process.env.SMTP_PORT),
+    secure: false,
     auth: {
         user: authUser,
-        pass: (process.env.SMTP_PASS || '').replace(/\s/g, ''),
+        pass: process.env.SMTP_PASS,
+    },
+    tls: {
+        rejectUnauthorized: false
     }
 });
-
+transporter.verify(function(error, success) {
+    if (error) {
+        console.error("SMTP connection error:", error);
+    } else {
+        console.log("SMTP server ready to send mails");
+    }
+});
 // GET - All contacts (for admin)
 router.get('/', async (req, res) => {
     try {
