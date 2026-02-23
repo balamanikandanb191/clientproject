@@ -24,18 +24,18 @@ const Contact = () => {
   const [isSubmitted, setIsSubmitted] = useState(false)
   const [error, setError] = useState('')
 
- const services = [
-  'Software Development',
-  'Web Application Development',
-  'API & Backend Development',
-  'Cloud Solutions & DevOps',
-  'SaaS Platform Development',
-  'UI / UX Design',
-  'Game Development',
-  'Digital Marketing',
-  'IoT Development',
-  'Other'
-]
+  const services = [
+    'Software Development',
+    'Web Application Development',
+    'API & Backend Development',
+    'Cloud Solutions & DevOps',
+    'SaaS Platform Development',
+    'UI / UX Design',
+    'Game Development',
+    'Digital Marketing',
+    'IoT Development',
+    'Other'
+  ]
 
   const handleChange = (e) => {
     const { name, value } = e.target
@@ -49,11 +49,11 @@ const Contact = () => {
     setError('')
 
     try {
-     const response = await fetch('https://clientproject-mjew.onrender.com/api/contact', {
-  method: 'POST',
-  headers: { 'Content-Type': 'application/json' },
-  body: JSON.stringify(formData)
-})
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData)
+      })
 
       const data = await response.json()
 
