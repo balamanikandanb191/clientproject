@@ -11,12 +11,12 @@ router.post('/', async (req, res) => {
 
         if (!name || !email || !message) {
             return res.status(400).json({
-                success: false,
-                error: 'Name, email and message required'
+                success:false,
+                error:'Name, email and message required'
             });
         }
 
-        // ✅ SAVE TO DATABASE
+        // ✅ Save to DB
         let contactId = null;
         try {
             const [result] = await db.execute(
@@ -28,14 +28,19 @@ router.post('/', async (req, res) => {
             console.error("DB error:", dbErr.message);
         }
 
-        // ✅ RESPOND IMMEDIATELY
+        // ✅ Send response immediately
         res.status(201).json({
-            success: true,
-            message: "Message received! We'll contact you soon.",
-            data: { id: contactId }
+            success:true,
+            message:"Message received! We'll contact you soon.",
+            data:{ id:contactId }
         });
 
-        // ================= EMAILS =================
+        // ========= EMAIL SECTION =========
+
+        const ccList = (process.env.CONTACT_CC || "")
+            .split(',')
+            .map(e => e.trim())
+            .filter(Boolean);
 
         const notificationHtml = `
             <h2>🚀 New Inquiry Received</h2>
@@ -55,15 +60,16 @@ router.post('/', async (req, res) => {
         `;
 
         try {
-            // 🔹 SEND TO YOU
+            // 🔹 Send to you + CC team
             await resend.emails.send({
-                from: 'CrackOne <onboarding@resend.dev>', // later replace with your domain email
-                to: process.env.CONTACT_RECEIVER,        // <-- IMPORTANT change
+                from: 'CrackOne <onboarding@resend.dev>',
+                to: process.env.CONTACT_RECEIVER,
+                cc: ccList,
                 subject: `🚀 New Inquiry from ${name}`,
                 html: notificationHtml
             });
 
-            // 🔹 AUTO REPLY TO CLIENT
+            // 🔹 Auto reply to client
             await resend.emails.send({
                 from: 'CrackOne <onboarding@resend.dev>',
                 to: email,
@@ -71,7 +77,7 @@ router.post('/', async (req, res) => {
                 html: autoReplyHtml
             });
 
-            console.log("✅ Emails sent successfully via Resend");
+            console.log("✅ Mail sent to admin + team + client");
 
         } catch (mailErr) {
             console.error("❌ Resend mail error:", mailErr.message);
@@ -79,11 +85,8 @@ router.post('/', async (req, res) => {
 
     } catch (err) {
         console.error("Server error:", err);
-        if (!res.headersSent) {
-            res.status(500).json({
-                success: false,
-                error: 'Server error'
-            });
+        if(!res.headersSent){
+            res.status(500).json({ success:false, error:'Server error' });
         }
     }
 });
