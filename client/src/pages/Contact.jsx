@@ -49,11 +49,14 @@ const Contact = () => {
     setError('')
 
     try {
-      const response = await fetch('/api/contact', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData)
-      })
+      const response = await fetch(
+        '/api/contact',
+        {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(formData)
+        }
+      )
 
       const data = await response.json()
 
@@ -211,7 +214,7 @@ const Contact = () => {
             <div className="contact-info">
               <div className="info-card glass-card">
                 <FaEnvelope />
-                <p>crackonetechnologies@gmail.com</p>
+                <p>admin@crackonetechnologies.xyz</p>
               </div>
 
               <div className="info-card glass-card">

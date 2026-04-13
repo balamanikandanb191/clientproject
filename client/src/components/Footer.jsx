@@ -26,9 +26,8 @@ const Footer = () => {
     ]
 
     const socialLinks = [
-        { icon: <FaLinkedin />, url: 'https://www.linkedin.com/company/crackone-technologies', label: 'LinkedIn' },
-        { icon: <FaMailBulk />, url: 'crackonetechnologies@gmail.com', label: 'Email' },
-        { icon: <FaGithub />, url: 'https://github.com/crackone-technologies', label: 'GitHub' },
+        { icon: <FaLinkedin />, url: 'https://www.linkedin.com/company/crackone-technologies/', label: 'LinkedIn' },
+        { icon: <FaMailBulk />, url: 'mailto:admin@crackonetechnologies.xyz', label: 'Email' },
         { icon: <FaInstagram />, url: 'https://www.instagram.com/crackonetechnologies?igsh=Zm84emV6dTdqbGFj', label: 'Instagram' }
     ]
 
@@ -95,7 +94,7 @@ const Footer = () => {
                             <div className="footer-contact">
                                 <div className="contact-item">
                                     <FaEnvelope className="contact-icon" />
-                                    <a href="mailto:crackonetechnologies@gmail.com">crackonetechnologies@gmail.com</a>
+                                    <a href="mailto:admin@crackonetechnologies.xyz">admin@crackonetechnologies.xyz</a>
                                 </div>
                                 <div className="contact-item">
                                     <FaPhone className="contact-icon" />
