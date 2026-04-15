@@ -1,27 +1,17 @@
-const mysql = require('mysql2/promise');
+const { DynamoDBClient } = require("@aws-sdk/client-dynamodb");
+const { DynamoDBDocumentClient } = require("@aws-sdk/lib-dynamodb");
 require('dotenv').config();
 
-const pool = mysql.createPool({
-    host: process.env.DB_HOST || 'localhost',
-    user: process.env.DB_USER || 'root',
-    password: process.env.DB_PASSWORD || '',
-    database: process.env.DB_NAME || 'crackone_db',
-    waitForConnections: true,
-    connectionLimit: 10,
-    queueLimit: 0
+const client = new DynamoDBClient({
+    region: process.env.AWS_REGION || "us-east-1",
+    credentials: {
+        accessKeyId: process.env.AWS_ACCESS_KEY_ID || "",
+        secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY || ""
+    }
 });
 
-// Test database connection
-const testConnection = async () => {
-    try {
-        const connection = await pool.getConnection();
-        console.log('✅ Database connected successfully');
-        connection.release();
-    } catch (error) {
-        console.error('❌ Database connection failed:', error.message);
-    }
-};
+const db = DynamoDBDocumentClient.from(client);
 
-testConnection();
+console.log('✅ AWS DynamoDB Configuration Loaded');
 
-module.exports = pool;
+module.exports = db;

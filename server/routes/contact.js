@@ -26,15 +26,26 @@ router.post('/', async (req, res) => {
         }
 
         // ✅ Save to DB
-        let contactId = null;
+        let contactId = Date.now().toString(); // Random ID for DynamoDB
         try {
-            const [result] = await db.execute(
-                'INSERT INTO contacts (name,email,phone,company,service,message) VALUES (?,?,?,?,?,?)',
-                [name, email, phone || '', company || '', service || '', message]
-            );
-            contactId = result.insertId;
+            const { PutCommand } = require("@aws-sdk/lib-dynamodb");
+            await db.send(new PutCommand({
+                TableName: "clientproject-contacts",
+                Item: {
+                    contactId: contactId,
+                    name: name,
+                    email: email,
+                    phone: phone || '',
+                    company: company || '',
+                    service: service || '',
+                    message: message,
+                    createdAt: new Date().toISOString()
+                }
+            }));
+            console.log("Contact saved to DynamoDB successfully");
         } catch (dbErr) {
             console.error("DB error:", dbErr.message);
+            contactId = null; 
         }
 
         // ✅ Send response immediately
