@@ -1,18 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const db = require('../config/db');
-const nodemailer = require('nodemailer');
+const { Resend } = require('resend');
 
-const transporter = nodemailer.createTransport({
-    host: process.env.SMTP_HOST,
-    port: Number(process.env.SMTP_PORT),
-    secure: Number(process.env.SMTP_PORT) === 465,
-    auth: {
-        user: process.env.SMTP_USER,
-        pass: process.env.SMTP_PASS
-    },
-    tls: { rejectUnauthorized: false }
-});
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 router.post('/', async (req, res) => {
     try {
@@ -26,7 +17,7 @@ router.post('/', async (req, res) => {
         }
 
         // ✅ Save to DB
-        let contactId = Date.now().toString(); // Random ID for DynamoDB
+        let contactId = Date.now().toString(); 
         try {
             const { PutCommand } = require("@aws-sdk/lib-dynamodb");
             await db.send(new PutCommand({
@@ -55,7 +46,7 @@ router.post('/', async (req, res) => {
             data: { id: contactId }
         });
 
-        // ========= EMAIL SECTION =========
+        // ========= EMAIL SECTION (VIA RESEND) =========
 
         const ccList = (process.env.CONTACT_CC || "")
             .split(',')
@@ -113,33 +104,31 @@ router.post('/', async (req, res) => {
         `;
 
         try {
-            console.log("📨 Attempting to send emails via Nodemailer...");
+            console.log("📨 Attempting to send emails via Resend API...");
 
             // 🔹 Send to you + CC team
-            const adminEmail = await transporter.sendMail({
-                from: `"CrackOne Technologies" <admin@crackonetechnologies.xyz>`,
-                replyTo: `admin@crackonetechnologies.xyz`,
+            const adminEmail = await resend.emails.send({
+                from: 'CrackOne Technologies <onboarding@resend.dev>', // If domain not verified, must use this
                 to: process.env.CONTACT_RECEIVER,
                 cc: ccList,
                 subject: `🚀 New Inquiry from ${name}`,
                 html: notificationHtml
             });
-            console.log("📬 Admin notification response:", adminEmail.messageId);
+            console.log("📬 Admin notification sent via Resend:", adminEmail.data?.id);
 
             // 🔹 Auto reply to client
-            const clientEmail = await transporter.sendMail({
-                from: `"CrackOne Technologies" <admin@crackonetechnologies.xyz>`,
-                replyTo: `admin@crackonetechnologies.xyz`,
+            const clientEmail = await resend.emails.send({
+                from: 'CrackOne Technologies <onboarding@resend.dev>',
                 to: email,
                 subject: 'We received your message',
                 html: autoReplyHtml
             });
-            console.log("📬 Client auto-reply response:", clientEmail.messageId);
+            console.log("📬 Client auto-reply sent via Resend:", clientEmail.data?.id);
 
             console.log("✅ Mail process completed");
 
         } catch (mailErr) {
-            console.error("❌ Mail error:", mailErr.message);
+            console.error("❌ Resend API error:", mailErr.message);
         }
 
     } catch (err) {

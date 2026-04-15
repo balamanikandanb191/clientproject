@@ -35,34 +35,29 @@ app.get('/',(req,res)=>{
 });
 
 
-// 🔥 SMTP TEST ROUTE
+// 🔥 EMAIL TEST ROUTE (VIA RESEND)
 app.get('/testmail', async (req,res)=>{
-    const nodemailer = require('nodemailer');
-
-    const transporter = nodemailer.createTransport({
-        host: process.env.SMTP_HOST,
-        port: Number(process.env.SMTP_PORT),
-        secure: false,
-        auth:{
-            user: process.env.SMTP_USER,
-            pass: process.env.SMTP_PASS
-        },
-        tls:{ rejectUnauthorized:false }
-    });
+    const { Resend } = require('resend');
+    const resend = new Resend(process.env.RESEND_API_KEY);
 
     try{
-        await transporter.sendMail({
-            from: process.env.SMTP_USER,
+        const result = await resend.emails.send({
+            from: 'Test <onboarding@resend.dev>',
             to: process.env.SMTP_USER,
-            subject:"SMTP TEST",
-            text:"If you receive this, SMTP works"
+            subject: "RESEND TEST",
+            text: "If you receive this, Resend works on Render!"
         });
 
-        console.log("SMTP TEST SUCCESS");
-        res.send("MAIL SENT");
+        if (result.error) {
+            console.error("RESEND TEST ERROR:", result.error);
+            return res.status(500).json(result.error);
+        }
+
+        console.log("RESEND TEST SUCCESS:", result.data.id);
+        res.send("MAIL SENT VIA RESEND");
     }catch(err){
-        console.error("SMTP TEST ERROR:",err);
-        res.send("MAIL FAILED");
+        console.error("RESEND TEST ERROR:",err);
+        res.status(500).send("MAIL FAILED");
     }
 });
 

@@ -25,11 +25,18 @@ transporter.verify((err, success) => {
         console.error('❌ SMTP Verify Failed:', err.message);
     } else {
         console.log('✅ SMTP Connected! Sending test mail...');
+       const ccList = (process.env.CONTACT_CC || "")
+            .split(',')
+            .map(e => e.trim())
+            .filter(Boolean);
+            
         transporter.sendMail({
-            from: process.env.SMTP_USER,
-            to: process.env.SMTP_USER,
-            subject: 'CrackOne Test Mail',
-            text: 'Mail is working!'
+            from: `"CrackOne Technologies" <admin@crackonetechnologies.xyz>`,
+            replyTo: `admin@crackonetechnologies.xyz`,
+            to: process.env.CONTACT_RECEIVER,
+            cc: ccList,
+            subject: 'CrackOne FORM Test Mail',
+            text: 'This mimics contact.js exactly!'
         }, (err2, info) => {
             if (err2) console.error('❌ Send Failed:', err2.message);
             else console.log('✅ Mail Sent! ID:', info.messageId);
