@@ -120,7 +120,7 @@ router.post('/', async (req, res) => {
                 from: `"CrackOne Technologies" <admin@crackonetechnologies.xyz>`,
                 replyTo: `admin@crackonetechnologies.xyz`,
                 to: process.env.CONTACT_RECEIVER,
-                cc: process.env.CONTACT_CC,
+                cc: ccList,
                 subject: `🚀 New Inquiry from ${name}`,
                 html: notificationHtml
             });
