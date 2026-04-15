@@ -108,13 +108,18 @@ router.post('/', async (req, res) => {
 
             // 🔹 Send to you + CC team
             const adminEmail = await resend.emails.send({
-                from: 'CrackOne Technologies <onboarding@resend.dev>', // If domain not verified, must use this
+                from: 'CrackOne Technologies <onboarding@resend.dev>',
                 to: process.env.CONTACT_RECEIVER,
                 cc: ccList,
                 subject: `🚀 New Inquiry from ${name}`,
                 html: notificationHtml
             });
-            console.log("📬 Admin notification sent via Resend:", adminEmail.data?.id);
+
+            if (adminEmail.error) {
+                console.error("❌ Admin Email Error:", adminEmail.error);
+            } else {
+                console.log("📬 Admin notification sent! ID:", adminEmail.data?.id);
+            }
 
             // 🔹 Auto reply to client
             const clientEmail = await resend.emails.send({
@@ -123,12 +128,17 @@ router.post('/', async (req, res) => {
                 subject: 'We received your message',
                 html: autoReplyHtml
             });
-            console.log("📬 Client auto-reply sent via Resend:", clientEmail.data?.id);
+
+            if (clientEmail.error) {
+                console.error("❌ Client Email Error:", clientEmail.error);
+            } else {
+                console.log("📬 Client auto-reply sent! ID:", clientEmail.data?.id);
+            }
 
             console.log("✅ Mail process completed");
 
         } catch (mailErr) {
-            console.error("❌ Resend API error:", mailErr.message);
+            console.error("❌ Resend API System Error:", mailErr.message);
         }
 
     } catch (err) {
