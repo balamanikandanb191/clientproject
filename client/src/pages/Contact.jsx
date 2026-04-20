@@ -74,7 +74,8 @@ const Contact = () => {
         message: ''
       })
     } catch (err) {
-      setError('Server error. Please try again later.')
+      console.error('Submission Error:', err)
+      setError(err.message || 'Server error. Please try again later.')
     } finally {
       setIsSubmitting(false)
     }
