@@ -61,6 +61,7 @@ app.get('/testmail', async (req,res)=>{
     }
 });
 
-app.listen(PORT,()=>{
-    console.log(`Server running on port ${PORT}`);
+app.listen(PORT, () => {
+    console.log(`🚀 CrackOne Server running on http://localhost:${PORT}`);
+    console.log(`📡 API endpoints available at http://localhost:${PORT}/api`);
 });

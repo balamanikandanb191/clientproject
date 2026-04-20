@@ -2,7 +2,7 @@
 
 ![CrackOne Logo](client/public/logo.png)
 
-A professional, modern company website built with React.js, Node.js, Express.js, and MySQL.
+A professional, modern company website built with React.js, Node.js, Express.js, and AWS DynamoDB.
 
 ## 🚀 Features
 
@@ -10,7 +10,7 @@ A professional, modern company website built with React.js, Node.js, Express.js,
 - **Responsive Design** - Works on all devices
 - **React Frontend** - Fast SPA with React Router
 - **Node.js Backend** - RESTful API with Express
-- **MySQL Database** - Structured data storage
+- **AWS DynamoDB** - Scalable NoSQL database storage
 - **Admin Dashboard** - Manage contacts and content
 
 ## 📁 Project Structure
@@ -126,7 +126,7 @@ Visit: http://localhost:5173
 | Frontend | React.js, Vite, React Router |
 | Styling | CSS3, Animations, Glassmorphism |
 | Backend | Node.js, Express.js |
-| Database | MySQL |
+| Database | AWS DynamoDB |
 | Auth | JWT, bcryptjs |
 
 ## 📞 Contact
