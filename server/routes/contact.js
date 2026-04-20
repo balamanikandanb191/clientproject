@@ -5,18 +5,24 @@ const nodemailer = require('nodemailer');
 const { PutCommand } = require("@aws-sdk/lib-dynamodb");
 
 // Configure Nodemailer with Zoho SMTP
+const smtpHost = (process.env.SMTP_HOST || 'smtp.zoho.in').trim();
+const smtpUser = (process.env.SMTP_USER || '').trim();
+const smtpPass = (process.env.SMTP_PASS || '').trim();
+
 const transporter = nodemailer.createTransport({
-    host: process.env.SMTP_HOST || 'smtp.zoho.in',
+    host: smtpHost,
     port: Number(process.env.SMTP_PORT) || 587,
     secure: Number(process.env.SMTP_PORT) === 465,
     auth: {
-        user: process.env.SMTP_USER,
-        pass: process.env.SMTP_PASS
+        user: smtpUser,
+        pass: smtpPass
     },
     tls: {
         rejectUnauthorized: false
     }
 });
+
+console.log(`📡 Attempting SMTP connection via: ${smtpHost}`);
 
 // Verify SMTP connection on startup (optional but helpful for logs)
 transporter.verify((error, success) => {
