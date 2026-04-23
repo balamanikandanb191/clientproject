@@ -11,6 +11,8 @@ const PORT = process.env.PORT || 5000;
 app.use(cors({
     origin: [
         "https://crackonetechnologies.xyz",
+        "https://crackonetechnologies.in",
+        "https://www.crackonetechnologies.in",
         "http://localhost:5173",
         "http://localhost:3000"
     ],

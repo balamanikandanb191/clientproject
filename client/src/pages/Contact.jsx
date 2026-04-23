@@ -50,7 +50,7 @@ const Contact = () => {
 
     try {
       const response = await fetch(
-        'https://clientproject-2.onrender.com/api/contact',
+        'https://crackonetechnologies.onrender.com/api/contact',
         {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
